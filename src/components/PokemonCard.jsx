@@ -8,38 +8,59 @@ function PokemonCard({
 }) {
   return (
     <div className="pokemon-card">
-      <h2>{pokemon.nome}</h2>
+
+      <img
+        className="pokemon-imagem"
+        src={pokemon.imagem}
+        alt={pokemon.nome}
+        loading="lazy"
+      />
+
+      <h2>
+        {pokemon.nome}
+      </h2>
 
       <p className="pokemon-numero">
         Nº {pokemon.id}
       </p>
- <img
-  className="pokemon-imagem"
-  src={pokemon.imagem}
-  alt={pokemon.nome}
-/>
-      <Link
-        className="botao-detalhes"
-        to={`/pokemon/${pokemon.id}`}
-      >
-        Ver detalhes
-      </Link>
 
-      {favorito ? (
-        <button
-          className="botao-favorito"
-          onClick={() => removerFavorito(pokemon.id)}
+      <div className="pokemon-card-acoes">
+
+        <Link
+          className="botao-detalhes"
+          to={`/pokemon/${pokemon.id}`}
         >
-          Remover favorito
-        </button>
-      ) : (
-        <button
-          className="botao-favorito"
-          onClick={() => adicionarFavorito(pokemon)}
-        >
-          Favoritar
-        </button>
-      )}
+          Ver detalhes
+        </Link>
+
+        {favorito ? (
+          <button
+            type="button"
+            className="botao-favorito"
+            onClick={() =>
+              removerFavorito(
+                pokemon.id
+              )
+            }
+          >
+            Remover favorito
+          </button>
+        ) : (
+          <button
+            type="button"
+            className="botao-favorito"
+            onClick={() =>
+              adicionarFavorito(
+                pokemon
+              )
+            }
+          >
+            Favoritar
+          </button>
+        )}
+
+      </div>
+
     </div>
   )
 }

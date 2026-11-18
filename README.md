@@ -952,3 +952,91 @@ React Router
 # 📄 Licença
 
 Projeto desenvolvido para fins acadêmicos.
+
+# Contrato das APIs - AV2
+
+## PokéAPI
+
+URL-base:
+
+https://pokeapi.co/api/v2
+
+### Listagem
+
+GET /pokemon?limit=151&offset=0
+
+Utilizado para obter os 151 Pokémon da primeira geração.
+
+### Detalhes
+
+GET /pokemon/{id}
+
+Utilizado para obter:
+
+- nome
+- altura
+- peso
+- tipos
+- habilidades
+- atributos
+- imagem
+
+## DummyJSON
+
+URL-base:
+
+https://dummyjson.com
+
+### Login
+
+POST /auth/login
+
+Corpo:
+
+{
+  "username": "emilys",
+  "password": "emilyspass"
+}
+
+Retorna dados do usuário, accessToken e refreshToken.
+
+### Usuário autenticado
+
+GET /auth/me
+
+Header:
+
+Authorization: Bearer TOKEN
+
+Utilizado para restaurar e validar a sessão.
+
+# Evolução da AV1 para AV2
+
+| Aspecto | AV1 | AV2 |
+|---|---|---|
+| Dados Pokémon | Arquivo JS local | PokéAPI |
+| Detalhes | Dados locais | Dados remotos |
+| Requisições | Não havia | fetch em services |
+| Carregamento | Não havia | Estado visível |
+| Erro de rede | Não havia | Mensagem + tentar novamente |
+| Contingência | Dados principais locais | Fallback local |
+| Autenticação | Não havia | DummyJSON |
+| Login | Não havia | Implementado |
+| Sessão | Não havia | Persistida após F5 |
+| Rota protegida | Não havia | /perfil |
+| Logout | Não havia | Implementado |
+| 401/403 | Não aplicável | Tratados no authService |
+| Organização | pages/components/data | services/config adicionados |
+
+## Persistência
+
+Os Pokémon são obtidos remotamente pela PokéAPI.
+
+Os favoritos continuam armazenados no localStorage.
+
+A sessão autenticada é armazenada localmente sem salvar a senha.
+
+## Contingência
+
+Caso a PokéAPI esteja indisponível, a aplicação utiliza
+src/data/pokemons.js e as imagens locais para permitir a demonstração.
